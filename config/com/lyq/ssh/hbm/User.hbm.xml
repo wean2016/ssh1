@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 
+package：指定当前映射文件的实体类model所在的包
+ -->
+<hibernate-mapping package="com.lyq.ssh.model">
+	<!-- 
+		lazy：当前类是否使用延迟加载，默认是true使用，false不使用
+	 -->
+	<class name="User" table="t_user">
+		<!-- 对User对象开启二级缓存 -->
+		<cache usage="read-write"/>
+		<!-- id
+			是主键映射配置
+		 -->
+		<id name="userId" column="user_id">
+			<!-- 
+				generator：主键的映射策略
+			 -->
+			<generator class="native"></generator>
+		</id>
+		<property name="username"></property>
+		<property name="password"></property>
+	</class>
+</hibernate-mapping>
