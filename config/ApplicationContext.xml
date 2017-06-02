@@ -43,33 +43,10 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-    <!--配置事务-->
-    <tx:advice id="txAdvice" transaction-manager="txManager" >
-        <tx:attributes>
-            <tx:method name="save*" propagation="REQUIRED"/>
-            <tx:method name="get*" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
+    <tx:annotation-driven transaction-manager="txManager"/>
 
-    <!--切面配置-->
-    <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.lyq.ssh.service..*.*(..))" />
-    </aop:config>
-
-    <!--配置dao注入sessionFactory-->
-    <bean id="userDao" class="com.lyq.ssh.dao.impl.UserDaoImpl">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-
-    <!--配置service注入userDao-->
-    <bean id="userService" class="com.lyq.ssh.service.impl.UserServiceImpl">
-		<property name="userDao" ref="userDao"></property>
-    </bean>
-
-	<!--配置struts2的Action,并且注入userService-->
-	<bean id="userAction" class="com.lyq.ssh.action.UserAction">
-		<property name="userService" ref="userService"></property>
-	</bean>
+	<!--配置扫描器-->
+    <context:component-scan base-package="com.lyq.ssh"/>
 
 
 </beans>
